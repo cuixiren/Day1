@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+<!--  错误：这里不可以使用mustache语法-->
+<!--  <img src="{{imgUrl}}" alt="">-->
+<!--  正确的做法：使用v-bind指令-->
+  <img v-bind:src="imgURL" alt="">
+  <a v-bind:href="aHref">度娘</a>
+<!--  <h2>{{}}</h2>-->
+
+<!--  语法糖的写法-->
+  <img :src="imgURL" alt="">
+  <a :href="aHref">度娘</a>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      imgURL: 'https://cn.vuejs.org/images/logo.svg',
+      aHref: 'https://www.baidu.com/'
+    }
+  })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  // 注意一：const修饰的标识符只能赋值一次，不能修改
+  const name = 'wye';
+  name = 'eje';
+
+  // 注意二：使用const定义标识符时必须进行赋值
+  const cui;
+
+  // 注意三：常量的含义是指向的对象不能修改，但是可以改变对象内部的属性(const即使内部属性被修改对应的还是原来的内存地址，而修改let变量会改到新的内存地址)
+  const obj = {
+    name: 'wye',
+    age: 18,
+    height: 1.88
+  }
+  console.log(obj);
+
+  obj.name = 'cuixiren';
+  obj.age = 40;
+  obj.height = '11';
+  console.log(obj);
+</script>
+
+</body>
+</html>

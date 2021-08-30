@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--  1. .stop修饰符的使用（阻止事件冒泡）-->
+  <div @click="divClick">
+    aaaaaaa
+    <button @click.stop="btnClick">按钮</button>
+  </div>
+  <br>
+  <!--  2. .prevent修饰符的使用（阻止默认事件，点击时不希望自动提交，想在代码里处理）-->
+  <form action="baidu">
+    <input type="submit" value="提交" @click.prevent="submitClick">
+  </form>
+
+  <!--  3. 监听某个按键的点击-->
+  <input type="text" @keyup.enter="keyUp">
+
+  <!--  .native监听组件（后面讲组件会提到）-->
+  <!--  4. .once修饰符的使用-->
+  <button @click.once="btn2Click">点一次</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    methods: {
+      btnClick() { // 正常点这个按钮，divClick()也会被执行（冒泡）
+        console.log("btnClick");
+      },
+      divClick() {
+        console.log("divClick");
+      },
+      submitClick() {
+        console.log('submitClick');
+      },
+      keyUp() {
+        console.log('keyUp'); // keyup松开按键时打印
+      },
+      btn2Click() {
+        console.log('btn2Click'); //只希望用户点一次，防止重复提交
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

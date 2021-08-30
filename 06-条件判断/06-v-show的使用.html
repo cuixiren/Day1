@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!--v-show改变元素的display属性，v-if则是直接删除。如果需要频繁显示隐藏用v-show性能更好，反之用v-if-->
+<div id="app">
+  <!--  v-if：当我们条件为false时，包含v-if指令的元素根本不会存在DOM中-->
+  <h2 v-if="isShow" id="aaa">{{message}}</h2>
+  <!--  当我们条件为false时，v-show只是给我们的元素添加一个行内样式：display：none -->
+  <h2 v-show="isShow" id="bbb">{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      isShow: true
+    }
+  })
+</script>
+
+</body>
+</html>

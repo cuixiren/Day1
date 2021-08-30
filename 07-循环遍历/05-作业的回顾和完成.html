@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .active {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <ul>
+    <!--实现思路：点击到哪个li，就把currentIndex设置为该li的index(通过监听点击)，currentIndex跟index相等时active属性为true，展示样式。-->
+    <li v-for="(item, index) in movies"
+        :class="{active: currentIndex === index}" @click="liClick(index)">
+      {{index}}-{{item}}
+    </li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      movies: ['海王', '海贼王', '11王', '22王'],
+      currentIndex: 0
+    },
+    methods: {
+      liClick(index) {
+        this.currentIndex = index
+      }
+    }
+  })
+</script>
+
+</body>
+</html>
