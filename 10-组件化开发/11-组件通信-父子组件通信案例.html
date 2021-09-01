@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!--需求：父传子再根据input输入的值进行子传父，num1永远是num2的100倍-->
+<div id="app">
+  <cpn :number1="num1"
+       :number2="num2"
+       @num1change="num1change"
+       @num2change="num2change"/>
+</div>
+
+<template id="cpn">
+  <div>
+    <!--    这里的input通过子组件双向绑定props的number1和number2值进行修改，但是props中的数据是父组件传给子组件的。
+    vue不推荐通过子组件修改props数据，改为dnumber-->
+    <h2>props:{{number1}}</h2>
+    <h2>props:{{dnumber1}}</h2>
+<!--    <input type="text" v-model="dnumber1">-->
+    <input type="text" :value="dnumber1" @input="num1Input">
+    <h2>props:{{number2}}</h2>
+    <h2>props:{{dnumber2}}</h2>
+<!--    <input type="text" v-model="dnumber2">-->
+    <input type="text" :value="dnumber2" @input="num2Input">
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      num1: 1,
+      num2: 0
+    },
+    methods: {
+      num1change(value) {
+        console.log(typeof value)
+        this.num1 = parseFloat(value);
+      },
+      num2change(value) {
+        this.num2 = parseFloat(value);
+      }
+    },
+    components: {
+      cpn: {
+        template: `#cpn`,
+        props: {
+          number1: Number,
+          number2: Number
+        },
+        data() {
+          return {
+            dnumber1: this.number1,
+            dnumber2: this.number2
+          }
+        },
+        methods: {
+          num1Input(event) {
+            // 1.将input的value赋值到dnumber中
+            this.dnumber1 = event.target.value;
+
+            // 2.为了修改父组件中的值，发出一个事件
+            this.$emit('num1change', this.dnumber1)
+
+            // 3.同时修改dnumber2的值
+            this.dnumber2 = this.dnumber1 * 100;
+            this.$emit('num2change', this.dnumber2) //props中的number2未改变，需要手动修改
+          },
+          num2Input(event) {
+            this.dnumber2 = event.target.value;
+            this.$emit('num2change', this.dnumber2)
+
+            this.dnumber1 = this.dnumber2 / 100;
+            this.$emit('num1change', this.dnumber1)
+          }
+        }
+      }
+    }
+  })
+</script>
+
+</body>
+</html>
