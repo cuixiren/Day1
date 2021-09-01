@@ -20,11 +20,11 @@
     vue不推荐通过子组件修改props数据，改为dnumber-->
     <h2>props:{{number1}}</h2>
     <h2>props:{{dnumber1}}</h2>
-<!--    <input type="text" v-model="dnumber1">-->
+    <!--    <input type="text" v-model="dnumber1">-->
     <input type="text" :value="dnumber1" @input="num1Input">
     <h2>props:{{number2}}</h2>
     <h2>props:{{dnumber2}}</h2>
-<!--    <input type="text" v-model="dnumber2">-->
+    <!--    <input type="text" v-model="dnumber2">-->
     <input type="text" :value="dnumber2" @input="num2Input">
   </div>
 </template>
@@ -77,6 +77,17 @@
 
             this.dnumber1 = this.dnumber2 / 100;
             this.$emit('num1change', this.dnumber1)
+          }
+        },
+        // 或者改用watch监听某一data值的改变,直接用v-model="dnumber1"就可以
+        watch: {
+          dnumber1(newValue) {
+            this.dnumber2 = newValue * 100;
+            this.$emit('num2change', this.dnumber2)
+          },
+          dnumber2(newValue) {
+            this.dnumber1 = newValue * 100;
+            this.$emit('num2change', this.dnumber2)
           }
         }
       }
