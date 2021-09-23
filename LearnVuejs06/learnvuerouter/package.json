@@ -2,7 +2,7 @@
   "name": "learnvuerouter",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "CUIXIREN <354932835@qq.com>",
+  "author": "cuixr <354932835@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

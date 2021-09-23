@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  // 什么时候使用箭头函数
+  // setTimeout(function() {
+  //   console.log(this);
+  // },1000)
+  // this = window
+  setTimeout(()=>{
+    console.log(this+'hahaha');
+  },1000)
+
+  // 结论：箭头函数中的this如何查找？
+  // 引用的是最近作用域中的this。向外层作用域中一层层查找，直到找到this的定义
+  // const obj = {
+  //   aaa() {
+  //     setTimeout(function() {
+  //       console.log(this); //window
+  //     },1000)
+  //     console.log(this)
+  //     setTimeout(()=>{
+  //       console.log(this); //obj对象
+  //     },1000)
+  //   }
+  // }
+  // obj.aaa()
+
+  //
+  const obj = {
+    aaa() {
+      setTimeout(function () {
+        setTimeout(function () {
+          console.log(this); //window
+        }, 1000)
+
+        this
+
+        setTimeout(() => {
+          console.log(this); //window
+        }, 1000)
+      }, 1000)
+
+      setTimeout(() => {
+        setTimeout(function () {
+          console.log(this); //window
+        }, 1000)
+
+        setTimeout(() => {
+          console.log(this); //obj
+        }, 1000)
+      }, 1000)
+    }
+  }
+  obj.aaa()
+</script>
+
+</body>
+</html>
