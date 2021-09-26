@@ -11,10 +11,34 @@
 
 <script>
 export default {
-  name: "home"
+  name: "home",
+  data() {
+    return {
+      path: '/home/news'
+    }
+  },
+  created() {
+    console.log('创建首页组件');
+    // this.$router.push('/home/news')
+    // document.title='首页'
+  },
+  destroyed() {
+    console.log('销毁首页组件');
+  },
+  //只有使用keep-alive标签时这两个函数才会被执行
+  activated() {
+    this.$router.push(this.path)
+  },
+  // deactivated() {
+  //   this.path = this.$route.path //这里赋值的是下一个路由组件的path
+  // },
+  beforeRouteLeave(to,from,next) {
+    console.log(this.$route.path);
+    this.path = this.$route.path; //将path改为当前路由组件的标签（记录离开时的路径）
+    next()
+  }
 }
 </script>
 
 <style scoped>
-
 </style>

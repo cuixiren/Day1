@@ -20,13 +20,17 @@ const routes = [
   },
   {
     path: '/home',
+    meta: {
+      title: '首页'
+    },
     component: () => import('../components/home'),
     children: [
-      {
-        path: '',
-        //嵌套默认路径
-        redirect: 'news'
-      },
+      // 为了在keep-alive里面记录组件跳转前最后一次访问的路径，这里不配置默认路径
+      // {
+      //   path: '',
+      //   //嵌套默认路径
+      //   redirect: 'news'
+      // },
       {
         path: 'message',
         component: () => import('../components/HomeMessage')
@@ -39,11 +43,28 @@ const routes = [
   },
   {
     path: '/about',
+    meta: {
+      title: '关于'
+    },
+    beforeEnter: (to,from,next)=>{
+      // console.log('about的beforeEnter');
+      next()
+    },
     component: () => import('../components/about')
   },
   {
     path: '/user/:userId',
+    meta: {
+      title: '用户'
+    },
     component: () => import('../components/user')
+  },
+  {
+    path: '/profile',
+    meta: {
+      title: '档案'
+    },
+    component: () => import('../components/Profile')
   }
 ];
 
@@ -52,6 +73,19 @@ const router = new VueRouter({
   routes,
   mode: 'history',
   linkActiveClass: 'active'
+})
+
+// 前置钩子(guard)
+router.beforeEach((to,from,next)=>{
+  // 从from跳转到to
+  document.title = to.matched[0].meta.title;
+  // console.log('前置');
+  next()
+})
+
+// 后置钩子(hook)
+router.afterEach((to,from) =>{
+  // console.log('后置');
 })
 
 // 3.将router对象传到vue实例中
