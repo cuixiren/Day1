@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  </head>
+  <body>
+
+  </body>
+
+  <script>
+    // // 1.使用setTimeout
+    // // setTimeout(() => {
+    // //   console.log('hello')
+    // // }, 1000)
+    //
+    // // 参数 -> 函数(resolve, reject)
+    // // resolve, reject本身又是函数
+    // // 链式编程
+    // new Promise((resolve, reject) => {
+    //
+    //   // 第一次网络请求的代码
+    //   setTimeout(() => {
+    //     resolve()
+    //   }, 1000)
+    // }).then(() => {
+    //   // 第一次拿到结果的代码
+    //   console.log('hello world')
+    //   console.log('hello world')
+    //   console.log('hello world')
+    //
+    //   return new Promise(((resolve, reject) => {
+    //     setTimeout(() => {
+    //       resolve()
+    //     })
+    //   })).then()
+    // })
+
+    // 什么情况下会用到Promise?
+    // 一般情况下是有异步操作时,使用Promise对这个异步操作进行封装
+    // new -> 构造函数(1.保存了一些状态信息 2.执行传入的函数)
+    new Promise((resolve, reject) => {
+      setTimeout((data)=>{
+        // 只在这里写网络请求代码,不写具体的业务逻辑
+        // 返回200,成功的时候调用resolve
+        resolve(data)
+
+        // 返回500,失败的时候调用reject. 这俩Promise只能抛出一个
+        reject('error message')
+      }, 1000)
+    }).then((data) => { //如果调用resolve会跳到这里
+      // 1.100行的处理代码
+      console.log(data);
+      console.log(data);
+      console.log(data);
+    }).catch((err) => { //调用reject会跳到这里
+      console.log(err);
+    })
+  </script>
+</html>
