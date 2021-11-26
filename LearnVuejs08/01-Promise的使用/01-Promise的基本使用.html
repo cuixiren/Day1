@@ -39,13 +39,14 @@
     // 什么情况下会用到Promise?
     // 一般情况下是有异步操作时,使用Promise对这个异步操作进行封装
     // new -> 构造函数(1.保存了一些状态信息 2.执行传入的函数)
+    // 在执行传入的回调函数时,会传入两个参数-- resolve,reject 本身又是函数
     new Promise((resolve, reject) => {
       setTimeout((data)=>{
         // 只在这里写网络请求代码,不写具体的业务逻辑
-        // 返回200,成功的时候调用resolve
+        // 成功(返回200)的时候调用resolve
         resolve(data)
 
-        // 返回500,失败的时候调用reject. 这俩Promise只能抛出一个
+        // 失败(返回500)的时候调用reject. 这俩Promise只能抛出一个
         reject('error message')
       }, 1000)
     }).then((data) => { //如果调用resolve会跳到这里
